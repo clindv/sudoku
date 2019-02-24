@@ -2,6 +2,12 @@
   (:use [clojure.core.logic :rename {== ===}])
   (:gen-class))
 
+(defn permutate [coll]
+  (if (next coll)
+    (apply concat
+           (for [x coll]
+             (map (partial concat [x]) (permutate (remove #{x} coll)))))
+    [coll]))
 (def eazy
   [[1 2 3 4]
    [3 4 1 2]
